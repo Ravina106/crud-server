@@ -15,10 +15,13 @@ export const create = async (req, res) => {
     if (userExists) {
       return res.status(400).json({ msg: "Email already exists" });
     }
+    console.log(userExists);
 
 
     const newUser = new User({ fname, lname, email, password });
     const savedUser = await newUser.save();
+
+    console.log(newUser);
 
     res.status(201).json(savedUser);
   } catch (error) {
@@ -33,6 +36,7 @@ export const getAll = async (req, res) => {
     if (!users.length) {
       return res.status(404).json({ msg: "No users found" });
     }
+    console.log(users);
     res.status(200).json(users);
   } catch (error) {
     res.status(500).json({ error: error.message });
@@ -47,6 +51,7 @@ export const getOne = async (req, res) => {
     if (!user) {
       return res.status(404).json({ msg: "User not found" });
     }
+    console.log(user);
     res.status(200).json(user);
   } catch (error) {
     res.status(500).json({ error: error.message });
@@ -62,6 +67,7 @@ export const update = async (req, res) => {
       new: true,
       runValidators: true,
     });
+    console.log(updatedUser);
 
     if (!updatedUser) {
       return res.status(404).json({ msg: "User not found" });
@@ -82,6 +88,7 @@ export const deleteUser = async (req, res) => {
     if (!deletedUser) {
       return res.status(404).json({ msg: "User not found" });
     }
+    console.log(deletedUser);
 
     res.status(200).json({ msg: "User deleted successfully" });
   } catch (error) {
