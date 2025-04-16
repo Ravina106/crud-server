@@ -5,10 +5,10 @@
   "license": "ISC",
   "author": "ravina ranaga",
   "type": "module",
-  "main": "index.js",
+  "main": "api/index.js",
   
   "scripts": {
-    "start": "nodemon index.js"
+    "start": "nodemon api/index.js"
   },
   "dependencies": {
     "body-parser": "^1.20.3",
