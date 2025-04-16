@@ -44,6 +44,10 @@ app.use(cors());
 // Routes
 app.use("/api", route);
 
+app.get("/", (req, res) => {
+  res.send("Welcome to the CRUD server!");
+});
+
 // Connect to MongoDB (only when not in Vercel environment)
 const URL = process.env.MONGOURL;
 
