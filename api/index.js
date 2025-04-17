@@ -25,13 +25,72 @@
 
 
 
+// import express from "express";
+// import dotenv from "dotenv";
+// import mongoose from "mongoose";
+// import cors from "cors";
+// import route from "../routes/userRoute.js";
+
+// // Load environment variables
+// dotenv.config();
+
+// // Initialize Express app
+// const app = express();
+
+// // Middleware
+// app.use(express.json());
+// app.use(cors());
+
+// // Routes
+// app.use("/api", route);
+
+// app.get("/", (req, res) => {
+//   res.send("Welcome to the CRUD server!");
+// });
+
+// // Connect to MongoDB (only when not in Vercel environment)
+// const URL = process.env.MONGOURL;
+
+// // Handle MongoDB connection
+// const connectDB = async () => {
+//   try {
+//     await mongoose.connect(URL);
+//     console.log("DB connected successfully");
+//   } catch (error) {
+//     console.error("DB connection error:", error);
+//     // Don't exit the process in serverless environment
+//     // process.exit(1);
+//   }
+// };
+
+// // Connect to MongoDB when not in serverless context
+// if (process.env.NODE_ENV !== 'production') {
+//   connectDB();
+//   const PORT = process.env.PORT || 7000;
+//   app.listen(PORT, () => {
+//     console.log(`Server is running on port:${PORT}`);
+//   });
+// }
+
+// // This will handle the MongoDB connection in Vercel
+// if (process.env.NODE_ENV === 'production') {
+//   connectDB();
+// }
+
+// // Export the Express API
+// export default app;
+
+
+
+
+// index.js
 import express from "express";
 import dotenv from "dotenv";
-import mongoose from "mongoose";
 import cors from "cors";
 import route from "../routes/userRoute.js";
+import { connectDB } from "./dbconnection.js";
 
-// Load environment variables
+// Load env variables
 dotenv.config();
 
 // Initialize Express app
@@ -44,40 +103,21 @@ app.use(cors());
 // Routes
 app.use("/api", route);
 
+// Optional root route
 app.get("/", (req, res) => {
   res.send("Welcome to the CRUD server!");
 });
 
-// Connect to MongoDB (only when not in Vercel environment)
-const URL = process.env.MONGOURL;
+// Connect to MongoDB
+connectDB();
 
-// Handle MongoDB connection
-const connectDB = async () => {
-  try {
-    await mongoose.connect(URL);
-    console.log("DB connected successfully");
-  } catch (error) {
-    console.error("DB connection error:", error);
-    // Don't exit the process in serverless environment
-    // process.exit(1);
-  }
-};
-
-// Connect to MongoDB when not in serverless context
-if (process.env.NODE_ENV !== 'production') {
-  connectDB();
+// Start server if not in Vercel (i.e. not production)
+if (process.env.NODE_ENV !== "production") {
   const PORT = process.env.PORT || 7000;
   app.listen(PORT, () => {
-    console.log(`Server is running on port:${PORT}`);
+    console.log(`🚀 Server is running on port: ${PORT}`);
   });
 }
 
-// This will handle the MongoDB connection in Vercel
-if (process.env.NODE_ENV === 'production') {
-  connectDB();
-}
-
-// Export the Express API
+// Export for Vercel (serverless)
 export default app;
-
-

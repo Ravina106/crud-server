@@ -22,7 +22,7 @@ export const create = async (req, res) => {
     const savedUser = await newUser.save();
 
     console.log(newUser);
-    console.log(savedUser)
+    console.log(savedUser);
     res.status(201).json(savedUser);
   } catch (error) {
     console.error("Error creating user:", error);
