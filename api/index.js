@@ -16,8 +16,8 @@ const app = express();
 app.use(express.json());
 app.use(cors({
   origin: [
-      // 'http://localhost:3000',  
-      'https://crud-server-tan.vercel.app/'
+      'http://localhost:3000',  
+      'https://crud-server-tan.vercel.app'
   ],
   methods: ["GET", "POST", "PUT", "DELETE"], 
   credentials: true
